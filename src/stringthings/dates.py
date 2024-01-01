@@ -10,8 +10,8 @@ import pandas as pd
 import datetime as dt
 from .errors import UndefinedDateFormat
 
-
 __all__ = ['date', 'is_date']
+
 
 def is_date(date_str, format_in='', verbose=False, return_format=False):
     """
@@ -215,7 +215,8 @@ def date(dates, format_in='', format_out='', verbose=True, year_base_in=1900, re
                         max(date_list[0])) <= 2150 and int(max(date_list[1])) <= 12:
                     pass  # YYYYMMDD
                 else:
-                    raise UndefinedDateFormat(f'Unable to identify date format, please provide with keyword format_in.\n: input:\n{dates[0] if len(dates) == 1 else dates}')
+                    raise UndefinedDateFormat(
+                        f'Unable to identify date format, please provide with keyword format_in.\n: input:\n{dates[0] if len(dates) == 1 else dates}')
         elif l == 9:
             x, y = 0, 0
             for i in range(9):
@@ -229,7 +230,8 @@ def date(dates, format_in='', format_out='', verbose=True, year_base_in=1900, re
                          [date_list[i][1] for i in range(len(date_list))],
                          [date_list[i][2] for i in range(len(date_list))]]
         else:
-            raise UndefinedDateFormat(f'Unable to identify date format, please provide with keyword format_in.\n: input:\n{dates[0] if len(dates) == 1 else dates}')
+            raise UndefinedDateFormat(
+                f'Unable to identify date format, please provide with keyword format_in.\n: input:\n{dates[0] if len(dates) == 1 else dates}')
 
     # if format_in is not defined try to guess what it is
     if format_in == '':
@@ -303,7 +305,8 @@ def date(dates, format_in='', format_out='', verbose=True, year_base_in=1900, re
                 print(' the input format is: ' + format_in)
 
         else:
-            raise UndefinedDateFormat(f'Unable to identify date format, please provide with keyword format_in.\n: input:\n{dates[0] if len(dates) == 1 else dates}')
+            raise UndefinedDateFormat(
+                f'Unable to identify date format, please provide with keyword format_in.\n: input:\n{dates[0] if len(dates) == 1 else dates}')
 
         if return_format:
             return format_in

@@ -7,6 +7,7 @@ Created on Mon Jan 01 13:53:33 2024
 
 __all__ = ['multisplit', 'split_dmmmy']
 
+
 def multisplit(string, sep=[' '], remove=[' ']):
     """
     Receives a string and returns a list with string split by all the separators in sep.

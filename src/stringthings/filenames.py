@@ -7,6 +7,7 @@ Created on Mon Jan 01 13:53:33 2024
 
 __all__ = ['extension']
 
+
 def extension(file_path: str, backslash_to_slash=True, back_compatibility=False):
     """
     receives a string indicating a FileName.Extension or

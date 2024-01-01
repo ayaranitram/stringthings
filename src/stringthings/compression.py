@@ -7,6 +7,7 @@ Created on Mon Jan 01 13:53:33 2024
 
 __all__ = ['expand', 'compress']
 
+
 def expand(keyword_values, default_value=0):
     """
     `expand` receives a list of values or a space-separated string containing

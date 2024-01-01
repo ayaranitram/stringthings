@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: stringthings
-Version: 0.1.1
+Version: 0.2.0
 Summary: some functions to work with strings.
 Author-email: Martin Carlos Araya <martinaraya@gmail.com>
 License: MIT License
@@ -51,5 +51,5 @@ or upgrade to the latest version:
   
 ## Optional requisites:  
 The main functionalities are purely Python powered and does not require any other package to work but, if present, some functions requires NumPy and Pandas:  
-- `NumPy` to be able to deal with iterables not of nparray type, like (list of values)  
-- `Pandas` to be able to recognize Series and DataFrames  
+- `NumPy`
+- `Pandas`
