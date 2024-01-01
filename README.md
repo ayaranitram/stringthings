@@ -9,5 +9,5 @@ or upgrade to the latest version:
   
 ## Optional requisites:  
 The main functionalities are purely Python powered and does not require any other package to work but, if present, some functions requires NumPy and Pandas:  
-- `NumPy` to be able to deal with iterables not of nparray type, like (list of values)  
-- `Pandas` to be able to recognize Series and DataFrames  
+- `NumPy`
+- `Pandas`

@@ -13,24 +13,27 @@ from .errors import UndefinedDateFormat
 
 __all__ = ['date', 'is_date']
 
-def is_date(dateStr, format_in='', verbose=False, return_format=False):
+def is_date(date_str, format_in='', verbose=False, return_format=False):
     """
     returns True if the string 'dateStr' is a valid date, otherwise returns False.
     """
+    if type(date_str) is str and len(date_str.strip()) == 0:
+        return False
+
     if format_in != '':
         try:
-            date(dateStr, format_in=format_in, verbose=verbose, return_format=return_format)
+            date(date_str, format_in=format_in, verbose=verbose, return_format=return_format)
             if return_format:
-                return date(dateStr, format_in=format_in, verbose=verbose, return_format=True)
+                return date(date_str, format_in=format_in, verbose=verbose, return_format=True)
             return True
         except:
             return False
 
     else:
         try:
-            date(dateStr, format_in='', verbose=verbose)
+            date(date_str, format_in='', verbose=verbose)
             if return_format:
-                return date(dateStr, format_in='', verbose=verbose, return_format=True)
+                return date(date_str, format_in='', verbose=verbose, return_format=True)
             return True
         except:
             pass
@@ -40,21 +43,21 @@ def is_date(dateStr, format_in='', verbose=False, return_format=False):
         separators = ['-', '/', ' ', '\t', '_', ':', ';', ', ', '.', '#', "'"]
         for f in formats:
             for sep in separators:
-                fIN = f.replace('-', sep) if sep != '-' else f
+                f_in = f.replace('-', sep) if sep != '-' else f
                 try:
-                    date(dateStr, format_in=fIN, verbose=verbose)
+                    date(date_str, format_in=f_in, verbose=verbose)
                     if return_format:
-                        return fIN
+                        return f_in
                     return True
                 except:
                     pass
 
         formats = ['YYYYMMDD', 'YYYYMMMDD']
-        for f in formats:
+        for f_in in formats:
             try:
-                date(dateStr, format_in=fIN, verbose=verbose)
+                date(date_str, format_in=f_in, verbose=verbose)
                 if return_format:
-                    return f
+                    return f_in
                 return True
             except:
                 pass
@@ -72,12 +75,12 @@ def date(dates, format_in='', format_out='', verbose=True, year_base_in=1900, re
     and 'Y' to identify day, month and year and the characters '/', '-', ' ',
     '\t' (tab) or '_' as separators.
 
-    If the keyword formatIN is not entered, the program will try to infer
+    If the keyword format_in is not entered, the program will try to infer
     the date format from the provided data.
 
     syntax examples:
 
-    stringformat.date('31/DEC/1984', formatIN='DD/MMM/YYYY', formatOUT='MM-DD-YYYY')
+    stringformat.date('31/DEC/1984', format_in='DD/MMM/YYYY', format_out='MM-DD-YYYY')
 
     speak parameter set to True will print a message showing the input and output formats.
     """
@@ -209,10 +212,10 @@ def date(dates, format_in='', format_out='', verbose=True, year_base_in=1900, re
                              [date_list[i][1] for i in range(len(date_list))],
                              [date_list[i][2] for i in range(len(date_list))]]
                 if int(max(date_list[2])) <= 31 and int(min(date_list[0])) >= 1900 and int(
-                        max(date_list[0])) <= 2050 and int(max(date_list[1])) <= 12:
+                        max(date_list[0])) <= 2150 and int(max(date_list[1])) <= 12:
                     pass  # YYYYMMDD
                 else:
-                    raise UndefinedDateFormat('unable to identify date format, please provide with keyword format_in')
+                    raise UndefinedDateFormat(f'Unable to identify date format, please provide with keyword format_in.\n: input:\n{dates[0] if len(dates) == 1 else dates}')
         elif l == 9:
             x, y = 0, 0
             for i in range(9):
@@ -226,9 +229,9 @@ def date(dates, format_in='', format_out='', verbose=True, year_base_in=1900, re
                          [date_list[i][1] for i in range(len(date_list))],
                          [date_list[i][2] for i in range(len(date_list))]]
         else:
-            raise UndefinedDateFormat('unable to identify date format, please provide with keyword format_in')
+            raise UndefinedDateFormat(f'Unable to identify date format, please provide with keyword format_in.\n: input:\n{dates[0] if len(dates) == 1 else dates}')
 
-    # if formatIN is not defined try to guess what it is
+    # if format_in is not defined try to guess what it is
     if format_in == '':
         date_str = [False, False, False]
         date_max = [None, None, None]
@@ -300,7 +303,7 @@ def date(dates, format_in='', format_out='', verbose=True, year_base_in=1900, re
                 print(' the input format is: ' + format_in)
 
         else:
-            raise UndefinedDateFormat('unable to identify date format, please provide with keyword format_in')
+            raise UndefinedDateFormat(f'Unable to identify date format, please provide with keyword format_in.\n: input:\n{dates[0] if len(dates) == 1 else dates}')
 
         if return_format:
             return format_in
@@ -389,7 +392,7 @@ def date(dates, format_in='', format_out='', verbose=True, year_base_in=1900, re
         for i in range(len(date_out[date_m])):
             date_out[date_m][i] = month_string_to_number[date_out[date_m][i]]
 
-    date_out_formated = []
+    date_out_formatted = []
     number_format = [None, None, None]  # [year, day, month]
     for i in range(3):
         number_format[order_out[i]] = order_out[i + 4]
@@ -464,9 +467,9 @@ def date(dates, format_in='', format_out='', verbose=True, year_base_in=1900, re
         else:
             date_str = date_str + str(date_out[2][i])
 
-        date_out_formated.append(date_str)
+        date_out_formatted.append(date_str)
 
     if output is str:
-        return date_out_formated[0]
+        return date_out_formatted[0]
     else:
-        return date_out_formated
+        return date_out_formatted
