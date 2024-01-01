@@ -5,7 +5,8 @@ Created on Mon Jan 01 13:53:33 2024
 @author: Martín Araya
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
+__release__ = 20240101
 
 from .dates import date, is_date
 from .numbers import is_numeric, get_number
