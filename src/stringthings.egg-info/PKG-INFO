@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: stringthings
-Version: 0.0.0
+Version: 0.1.0
 Summary: some functions to work with strings.
 Author-email: Martin Carlos Araya <martinaraya@gmail.com>
 License: MIT License
