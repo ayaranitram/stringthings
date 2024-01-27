@@ -5,7 +5,7 @@ Created on Mon Jan 01 13:53:33 2024
 @author: Martín Araya
 """
 
-__version__ = "0.2.4"
+__version__ = "0.2.5"
 __release__ = 20240127
 
 from .dates import format_date, is_date, format_date as date

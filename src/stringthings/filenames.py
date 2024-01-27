@@ -4,7 +4,7 @@ Created on Mon Jan 01 13:53:33 2024
 
 @author: Martín Araya
 """
-from os.path import isfile, isdir
+from os.path import isfile, isdir, exists
 
 __all__ = ['extension']
 
@@ -40,10 +40,11 @@ def extension(file_path: str, backslash_to_slash=True, back_compatibility=False)
         file_name_ = file_path[len_path:]
         extension_ = ''
 
-    if not isfile(f"{path_}{file_name_}{extension_}") and isdir(f"{path_}{file_name_}{extension_}"):
+    fullpath_ = f"{path_}{file_name_}{extension_}".strip()
+    if not isfile(fullpath_) and extension_ == '':
         file_name_, extension_, path_= '', '', f"{path_}{file_name_}{extension_}"
 
     if back_compatibility:
-        return file_name_, extension_, path_, f"{path_}{file_name_}{extension_}"
+        return file_name_, extension_, path_, fullpath_
     else:
-        return extension_, file_name_, path_, f"{path_}{file_name_}{extension_}"
+        return extension_, file_name_, path_, fullpath_
