@@ -10,7 +10,7 @@ import pandas as pd
 import datetime as dt
 from .errors import UndefinedDateFormat
 
-__all__ = ['date', 'is_date']
+__all__ = ['format_date', 'is_date']
 
 
 def is_date(date_str, format_in='', verbose=False, return_format=False):
@@ -22,18 +22,18 @@ def is_date(date_str, format_in='', verbose=False, return_format=False):
 
     if format_in != '':
         try:
-            date(date_str, format_in=format_in, verbose=verbose, return_format=return_format)
+            format_date(date_str, format_in=format_in, verbose=verbose, return_format=return_format)
             if return_format:
-                return date(date_str, format_in=format_in, verbose=verbose, return_format=True)
+                return format_date(date_str, format_in=format_in, verbose=verbose, return_format=True)
             return True
         except:
             return False
 
     else:
         try:
-            date(date_str, format_in='', verbose=verbose)
+            format_date(date_str, format_in='', verbose=verbose)
             if return_format:
-                return date(date_str, format_in='', verbose=verbose, return_format=True)
+                return format_date(date_str, format_in='', verbose=verbose, return_format=True)
             return True
         except:
             pass
@@ -45,7 +45,7 @@ def is_date(date_str, format_in='', verbose=False, return_format=False):
             for sep in separators:
                 f_in = f.replace('-', sep) if sep != '-' else f
                 try:
-                    date(date_str, format_in=f_in, verbose=verbose)
+                    format_date(date_str, format_in=f_in, verbose=verbose)
                     if return_format:
                         return f_in
                     return True
@@ -55,7 +55,7 @@ def is_date(date_str, format_in='', verbose=False, return_format=False):
         formats = ['YYYYMMDD', 'YYYYMMMDD']
         for f_in in formats:
             try:
-                date(date_str, format_in=f_in, verbose=verbose)
+                format_date(date_str, format_in=f_in, verbose=verbose)
                 if return_format:
                     return f_in
                 return True
@@ -64,9 +64,9 @@ def is_date(date_str, format_in='', verbose=False, return_format=False):
     return False
 
 
-def date(dates, format_in='', format_out='', verbose=True, year_base_in=1900, return_format=False):
+def format_date(dates, format_in='', format_out='', verbose=True, year_base_in=1900, return_format=False):
     """
-    date receives a string containing a date or a list of strings
+    `format_date` receives a string containing a date or a list of strings
     containing dates and changes the date format to the format specified by
     the user. By default, the out format will be 'DD-MMM-YYYY'.
 
@@ -80,9 +80,9 @@ def date(dates, format_in='', format_out='', verbose=True, year_base_in=1900, re
 
     syntax examples:
 
-    stringformat.date('31/DEC/1984', format_in='DD/MMM/YYYY', format_out='MM-DD-YYYY')
+    stringformat.get_date('31/DEC/1984', format_in='DD/MMM/YYYY', format_out='MM-DD-YYYY')
 
-    speak parameter set to True will print a message showing the input and output formats.
+    verbose parameter set to True will print a message showing the input and output formats.
     """
 
     def np_date_only(numpy_date):
@@ -269,7 +269,7 @@ def date(dates, format_in='', format_out='', verbose=True, year_base_in=1900, re
                 order_in[2] = i
                 order_in[6] = 2
                 found = found + 'Y'
-            elif date_max[i] is not None and (date_max[i] > 12 and date_max[i] <= 31):
+            elif date_max[i] is not None and (12 < date_max[i] <= 31):
                 order_in[0] = i
                 order_in[4] = 2
                 found = found + 'D'
@@ -386,11 +386,11 @@ def date(dates, format_in='', format_out='', verbose=True, year_base_in=1900, re
         for i in range(len(date_out[date_m])):
             date_out[date_m][i] = str(int(date_out[date_m][i])).zfill(2) + month_number_to_string[
                 int(date_out[date_m][i])]
-    elif order_out[5] > 2 and order_in[5] <= 2:
+    elif order_out[5] > 2 >= order_in[5]:
         date_m = order_out[1]
         for i in range(len(date_out[date_m])):
             date_out[date_m][i] = month_number_to_string[int(date_out[date_m][i])]
-    elif order_out[5] <= 2 and order_in[5] > 2:
+    elif order_out[5] <= 2 < order_in[5]:
         date_m = order_out[1]
         for i in range(len(date_out[date_m])):
             date_out[date_m][i] = month_string_to_number[date_out[date_m][i]]
