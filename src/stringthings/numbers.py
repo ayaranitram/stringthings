@@ -29,7 +29,8 @@ def is_numeric(string):
 
 def get_number(string):
     """
-    returns the number, as integer, float or complex, contained in a numeric string
+    Returns the number, as integer, float or complex, contained in a numeric string.
+    Raise ValueError if the string doesn't represent a number.
     """
     if is_numeric(string):
         string = string.lower()
