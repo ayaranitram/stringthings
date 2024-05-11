@@ -12,6 +12,10 @@ def is_numeric(string):
     """
     returns True if the string is a number
     """
+    if type(string) in (int, float, complex):
+        return True
+    elif not type(string) is str:
+        string = str(string)
     if 'j' in string.lower():
         try:
             complex(string)
@@ -32,6 +36,8 @@ def get_number(string):
     Returns the number, as integer, float or complex, contained in a numeric string.
     Raise ValueError if the string doesn't represent a number.
     """
+    if type(string) in (int, float, complex):
+        return string
     if is_numeric(string):
         string = string.lower()
         if 'j' in string:
